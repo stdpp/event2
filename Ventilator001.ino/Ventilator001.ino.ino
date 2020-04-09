@@ -1,5 +1,5 @@
 
-// Ventilator v0.02 (c) MB    //rBase64 lib
+// Ventilator v0.03 (c) MB    //rBase64 lib
 
 #include <string.h>
 
@@ -13,7 +13,7 @@ long runNumber = 0;   //"program counter"
 int breathingCurve[100];
 
 int t;  //current time
-int tA=10, tB=20, tC=30, tD=40, tE=50, tF=100,   LA=-40, LB=120, LC=120, LD=40;
+int tA=10, tB=20, tC=30, tD=40, tE=50, tF=100,   LA=-40, LB=120, LC=120, LD=40,  sp=4;
 int mode=1;
 
 // the setup function runs once when you press reset or power the board:
@@ -21,7 +21,7 @@ void setup()
 {
   //initialize digital pin LED_BUILTIN as an output.
   pinMode(LED_BUILTIN, OUTPUT);
-  Serial.begin(9600);
+  Serial.begin(19200);
   while (!Serial) 
   {
     ; // wait for serial port to connect. Needed for Arduino Leonardo only
@@ -50,6 +50,10 @@ void loop()
   runNumber++;
   t++;
 
+  //move actuators:
+  setPistonTo(breathingCurve[t]);
+
+  //serial out:
   if (ENABLE_OUTPUT_TO_PC)
   {
     Serial.write("<FromArduino runNumber='");
@@ -60,10 +64,13 @@ void loop()
     Serial.write(" t='");
     Serial.print(t);
     Serial.write("' ");
+    Serial.write(" br='");
+    Serial.print(breathingCurve[t]);
+    Serial.write("' ");
     Serial.write(" />\n\r");
   }
 
-
+  //serial in:
   while(Serial.available() > 0)
   {
      char aChar = Serial.read();
@@ -114,18 +121,19 @@ int parseInstructions()
     int ptrTag9 = strstr(inData, "' LB='");
     int ptrTag10 = strstr(inData, "' LC='");
     int ptrTag11 = strstr(inData, "' LD='");
-    int ptrTag12 = strstr(inData, "' md='");
+    int ptrTag12 = strstr(inData, "' sp='");
+    int ptrTag13 = strstr(inData, "' md='");
     
-    int ptrTag13 = strstr(inData, "' go='");
+    int ptrTag14 = strstr(inData, "' go='");
 
-    parseAndLoadNewMode(ptrTag1, ptrTag2, ptrTag3, ptrTag4, ptrTag5, ptrTag6, ptrTag7, ptrTag8, ptrTag9, ptrTag10, ptrTag11, ptrTag12, ptrTag13);
+    parseAndLoadNewMode(ptrTag1, ptrTag2, ptrTag3, ptrTag4, ptrTag5, ptrTag6, ptrTag7, ptrTag8, ptrTag9, ptrTag10, ptrTag11, ptrTag12, ptrTag13, ptrTag14);
   } // if
   
   
 }
 
 
-int parseAndLoadNewMode(int ptrTag1, int ptrTag2, int ptrTag3, int ptrTag4, int ptrTag5, int ptrTag6, int ptrTag7, int ptrTag8, int ptrTag9, int ptrTag10, int ptrTag11, int ptrTag12, int ptrTag13)
+int parseAndLoadNewMode(int ptrTag1, int ptrTag2, int ptrTag3, int ptrTag4, int ptrTag5, int ptrTag6, int ptrTag7, int ptrTag8, int ptrTag9, int ptrTag10, int ptrTag11, int ptrTag12, int ptrTag13, int ptrTag14)
 {
   // we receive something like this: 
   // <FromPC DB br='777777777770)$   $)07dt{}~~~~~QA:877777777777777777777777777777777777' tA='10' tB='20' tC='30' tD='60' tE='70' tF='100' LA='-40' LB='120' LC='120' LD='40' go='go'/>
@@ -211,9 +219,17 @@ int parseAndLoadNewMode(int ptrTag1, int ptrTag2, int ptrTag3, int ptrTag4, int 
   if (DEBUG_MODE_0) Serial.println(strValue);
   LD = atoi(strValue);
 
-  //we obtain: mode:
+  //we obtain: sp:
   strncpy(strValue, ptrTag12 + 6, ptrTag13 - ptrTag12 - 6);
   strValue[ptrTag13 - ptrTag12 - 6] = '\0';   //keep the string null terminated.
+  if (DEBUG_MODE_0) Serial.println("sp:");
+  if (DEBUG_MODE_0) Serial.println(strValue);
+  sp = atoi(strValue);
+
+
+  //we obtain: mode:
+  strncpy(strValue, ptrTag13 + 6, ptrTag14 - ptrTag13 - 6);
+  strValue[ptrTag14 - ptrTag13 - 6] = '\0';   //keep the string null terminated.
   if (DEBUG_MODE_0) Serial.println("mode:");
   if (DEBUG_MODE_0) Serial.println(strValue);
   mode = atoi(strValue);
@@ -221,7 +237,7 @@ int parseAndLoadNewMode(int ptrTag1, int ptrTag2, int ptrTag3, int ptrTag4, int 
   for (int i=0; i<100; i++)
   {
     breathingCurve[i] = strToParse[i];
-    //Serial.println(breathingCurve[i]);
+    Serial.println(breathingCurve[i]);
   }
 
   //reconvert breathingCurve to voltage values. LA=-40 is min. LB=100 is max.
@@ -234,10 +250,10 @@ int setupMotorsAndValves()
 }
 
 
-int setPistonTo(long position)
+int setPistonTo(int position)
 {
   //sets piston to spec. position
-  
+  delay(sp);
 }
 
 
@@ -260,7 +276,7 @@ int movePistonTo(long pos)
 
 void Blink01()
 {
-  for (int i=0; i<5; i++)
+  for (int i=0; i < 2; i++)
   {
     digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
     delay(1);                       // wait for a second

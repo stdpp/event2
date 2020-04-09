@@ -22,7 +22,7 @@ function GetSerializedBreathingCurve()
 
 	$conf = getDefaultConf();
 	//$strBrCurve = "<FromPC DB br='" . base64_encode(curveToASCII($brCurve, $conf)) . "' tA='". $conf->tA ."' tB='". $conf->tB ."' tC='". $conf->tC ."' tD='". $conf->tD ."' tE='". $conf->tE ."' tF='". $conf->tF ."' LA='". $conf->LA ."' LB='". $conf->LB ."' LC='". $conf->LC ."' LD='". $conf->LD ."' go='go'/>\r\n";
-	$strBrCurve = "<FromPC DB br='" . curveToPrintableASCII($brCurve, $conf) . "' tA='". $conf->tA ."' tB='". $conf->tB ."' tC='". $conf->tC ."' tD='". $conf->tD ."' tE='". $conf->tE ."' tF='". $conf->tF ."' LA='". $conf->LA ."' LB='". $conf->LB ."' LC='". $conf->LC ."' LD='". $conf->LD ."' md='1' go='go'/>\r\n";
+	$strBrCurve = "<FromPC DB br='" . curveToPrintableASCII($brCurve, $conf) . "' tA='". $conf->tA ."' tB='". $conf->tB ."' tC='". $conf->tC ."' tD='". $conf->tD ."' tE='". $conf->tE ."' tF='". $conf->tF ."' LA='". $conf->LA ."' LB='". $conf->LB ."' LC='". $conf->LC ."' LD='". $conf->LD ."' sp='". $conf->sp ."' md='". $conf->md ."' go='go'/>\r\n";
 	return $strBrCurve;
 }
 
@@ -137,5 +137,9 @@ function getDefaultConf()
 	$conf->LB = 120;	//positive pressure set level
 	$conf->LC = 120;	//plateau pressure
 	$conf->LD = 40;		//vertical offset
+	
+	$conf->md = 1;		//mode label / designation
+	$conf->sp = 32;		//speed
+	
 	return $conf;
 }

@@ -30,6 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             this.grpModes = new System.Windows.Forms.GroupBox();
+            this.btnAlarmOff = new System.Windows.Forms.Button();
+            this.btnTestRemoteAlarm = new System.Windows.Forms.Button();
+            this.btnTestAlarm = new System.Windows.Forms.Button();
             this.btnUndo = new System.Windows.Forms.Button();
             this.btnMode8 = new System.Windows.Forms.Button();
             this.btnMode7 = new System.Windows.Forms.Button();
@@ -45,7 +48,16 @@
             this.btnBeep = new System.Windows.Forms.Button();
             this.cmbPort = new System.Windows.Forms.ComboBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.lblMasterAlarm = new System.Windows.Forms.Label();
+            this.lblAlarmWD1 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.lblAlarmNetwork = new System.Windows.Forms.Label();
+            this.lblAlarmPressure = new System.Windows.Forms.Label();
+            this.lblAlarmPort = new System.Windows.Forms.Label();
+            this.lblAlarmBattery = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.btnGO = new System.Windows.Forms.Button();
             this.numSP = new System.Windows.Forms.NumericUpDown();
             this.lblSpeed = new System.Windows.Forms.Label();
             this.numLD = new System.Windows.Forms.NumericUpDown();
@@ -71,20 +83,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.txtDebug = new System.Windows.Forms.TextBox();
-            this.btnTestAlarm = new System.Windows.Forms.Button();
-            this.btnTestRemoteAlarm = new System.Windows.Forms.Button();
-            this.btnGO = new System.Windows.Forms.Button();
             this.tmrWatchdog1 = new System.Windows.Forms.Timer(this.components);
-            this.btnAlarmOff = new System.Windows.Forms.Button();
             this.tmrMasterAlarm = new System.Windows.Forms.Timer(this.components);
-            this.lblAlarmBattery = new System.Windows.Forms.Label();
-            this.lblAlarmPort = new System.Windows.Forms.Label();
-            this.lblAlarmPressure = new System.Windows.Forms.Label();
-            this.lblAlarmNetwork = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.lblAlarmWD1 = new System.Windows.Forms.Label();
-            this.lblMasterAlarm = new System.Windows.Forms.Label();
             this.grpModes.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -123,6 +123,38 @@
             this.grpModes.TabIndex = 0;
             this.grpModes.TabStop = false;
             this.grpModes.Text = "Modes";
+            // 
+            // btnAlarmOff
+            // 
+            this.btnAlarmOff.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAlarmOff.Location = new System.Drawing.Point(184, 48);
+            this.btnAlarmOff.Name = "btnAlarmOff";
+            this.btnAlarmOff.Size = new System.Drawing.Size(75, 23);
+            this.btnAlarmOff.TabIndex = 9;
+            this.btnAlarmOff.Text = "Alarm OFF";
+            this.btnAlarmOff.UseVisualStyleBackColor = true;
+            this.btnAlarmOff.Click += new System.EventHandler(this.btnAlarmOff_Click);
+            // 
+            // btnTestRemoteAlarm
+            // 
+            this.btnTestRemoteAlarm.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTestRemoteAlarm.Location = new System.Drawing.Point(184, 112);
+            this.btnTestRemoteAlarm.Name = "btnTestRemoteAlarm";
+            this.btnTestRemoteAlarm.Size = new System.Drawing.Size(75, 23);
+            this.btnTestRemoteAlarm.TabIndex = 8;
+            this.btnTestRemoteAlarm.Text = "TestRemAlarm";
+            this.btnTestRemoteAlarm.UseVisualStyleBackColor = true;
+            // 
+            // btnTestAlarm
+            // 
+            this.btnTestAlarm.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTestAlarm.Location = new System.Drawing.Point(184, 88);
+            this.btnTestAlarm.Name = "btnTestAlarm";
+            this.btnTestAlarm.Size = new System.Drawing.Size(75, 23);
+            this.btnTestAlarm.TabIndex = 5;
+            this.btnTestAlarm.Text = "Test Alarm";
+            this.btnTestAlarm.UseVisualStyleBackColor = true;
+            this.btnTestAlarm.Click += new System.EventHandler(this.btnTestAlarm_Click);
             // 
             // btnUndo
             // 
@@ -287,6 +319,102 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Alarms";
             // 
+            // lblMasterAlarm
+            // 
+            this.lblMasterAlarm.AutoSize = true;
+            this.lblMasterAlarm.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMasterAlarm.ForeColor = System.Drawing.Color.Red;
+            this.lblMasterAlarm.Location = new System.Drawing.Point(128, 48);
+            this.lblMasterAlarm.Name = "lblMasterAlarm";
+            this.lblMasterAlarm.Size = new System.Drawing.Size(71, 16);
+            this.lblMasterAlarm.TabIndex = 9;
+            this.lblMasterAlarm.Text = "MASTER";
+            this.lblMasterAlarm.Visible = false;
+            // 
+            // lblAlarmWD1
+            // 
+            this.lblAlarmWD1.AutoSize = true;
+            this.lblAlarmWD1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAlarmWD1.ForeColor = System.Drawing.Color.Red;
+            this.lblAlarmWD1.Location = new System.Drawing.Point(128, 16);
+            this.lblAlarmWD1.Name = "lblAlarmWD1";
+            this.lblAlarmWD1.Size = new System.Drawing.Size(55, 16);
+            this.lblAlarmWD1.TabIndex = 8;
+            this.lblAlarmWD1.Text = "WDOG";
+            this.lblAlarmWD1.Visible = false;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.ForeColor = System.Drawing.Color.Red;
+            this.label11.Location = new System.Drawing.Point(64, 47);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(65, 16);
+            this.label11.TabIndex = 7;
+            this.label11.Text = "CARDIO";
+            this.label11.Visible = false;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.ForeColor = System.Drawing.Color.Red;
+            this.label10.Location = new System.Drawing.Point(64, 32);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(51, 16);
+            this.label10.TabIndex = 6;
+            this.label10.Text = "NEMA";
+            this.label10.Visible = false;
+            // 
+            // lblAlarmNetwork
+            // 
+            this.lblAlarmNetwork.AutoSize = true;
+            this.lblAlarmNetwork.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAlarmNetwork.ForeColor = System.Drawing.Color.Red;
+            this.lblAlarmNetwork.Location = new System.Drawing.Point(64, 15);
+            this.lblAlarmNetwork.Name = "lblAlarmNetwork";
+            this.lblAlarmNetwork.Size = new System.Drawing.Size(39, 16);
+            this.lblAlarmNetwork.TabIndex = 5;
+            this.lblAlarmNetwork.Text = "NET";
+            this.lblAlarmNetwork.Visible = false;
+            // 
+            // lblAlarmPressure
+            // 
+            this.lblAlarmPressure.AutoSize = true;
+            this.lblAlarmPressure.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAlarmPressure.ForeColor = System.Drawing.Color.Red;
+            this.lblAlarmPressure.Location = new System.Drawing.Point(8, 48);
+            this.lblAlarmPressure.Name = "lblAlarmPressure";
+            this.lblAlarmPressure.Size = new System.Drawing.Size(49, 16);
+            this.lblAlarmPressure.TabIndex = 2;
+            this.lblAlarmPressure.Text = "PRES";
+            this.lblAlarmPressure.Visible = false;
+            // 
+            // lblAlarmPort
+            // 
+            this.lblAlarmPort.AutoSize = true;
+            this.lblAlarmPort.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAlarmPort.ForeColor = System.Drawing.Color.Red;
+            this.lblAlarmPort.Location = new System.Drawing.Point(8, 32);
+            this.lblAlarmPort.Name = "lblAlarmPort";
+            this.lblAlarmPort.Size = new System.Drawing.Size(50, 16);
+            this.lblAlarmPort.TabIndex = 1;
+            this.lblAlarmPort.Text = "PORT";
+            this.lblAlarmPort.Visible = false;
+            // 
+            // lblAlarmBattery
+            // 
+            this.lblAlarmBattery.AutoSize = true;
+            this.lblAlarmBattery.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAlarmBattery.ForeColor = System.Drawing.Color.Red;
+            this.lblAlarmBattery.Location = new System.Drawing.Point(8, 16);
+            this.lblAlarmBattery.Name = "lblAlarmBattery";
+            this.lblAlarmBattery.Size = new System.Drawing.Size(48, 16);
+            this.lblAlarmBattery.TabIndex = 0;
+            this.lblAlarmBattery.Text = "BATT";
+            this.lblAlarmBattery.Visible = false;
+            // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.btnGO);
@@ -319,6 +447,18 @@
             this.groupBox4.TabIndex = 3;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Customize";
+            // 
+            // btnGO
+            // 
+            this.btnGO.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.btnGO.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.btnGO.Location = new System.Drawing.Point(184, 144);
+            this.btnGO.Name = "btnGO";
+            this.btnGO.Size = new System.Drawing.Size(67, 23);
+            this.btnGO.TabIndex = 5;
+            this.btnGO.Text = "GO";
+            this.btnGO.UseVisualStyleBackColor = false;
+            this.btnGO.Click += new System.EventHandler(this.btnGO_Click);
             // 
             // numSP
             // 
@@ -614,149 +754,17 @@
             this.txtDebug.Size = new System.Drawing.Size(173, 38);
             this.txtDebug.TabIndex = 0;
             // 
-            // btnTestAlarm
-            // 
-            this.btnTestAlarm.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTestAlarm.Location = new System.Drawing.Point(184, 88);
-            this.btnTestAlarm.Name = "btnTestAlarm";
-            this.btnTestAlarm.Size = new System.Drawing.Size(75, 23);
-            this.btnTestAlarm.TabIndex = 5;
-            this.btnTestAlarm.Text = "Test Alarm";
-            this.btnTestAlarm.UseVisualStyleBackColor = true;
-            this.btnTestAlarm.Click += new System.EventHandler(this.btnTestAlarm_Click);
-            // 
-            // btnTestRemoteAlarm
-            // 
-            this.btnTestRemoteAlarm.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTestRemoteAlarm.Location = new System.Drawing.Point(184, 112);
-            this.btnTestRemoteAlarm.Name = "btnTestRemoteAlarm";
-            this.btnTestRemoteAlarm.Size = new System.Drawing.Size(75, 23);
-            this.btnTestRemoteAlarm.TabIndex = 8;
-            this.btnTestRemoteAlarm.Text = "TestRemAlarm";
-            this.btnTestRemoteAlarm.UseVisualStyleBackColor = true;
-            // 
-            // btnGO
-            // 
-            this.btnGO.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.btnGO.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnGO.Location = new System.Drawing.Point(184, 144);
-            this.btnGO.Name = "btnGO";
-            this.btnGO.Size = new System.Drawing.Size(67, 23);
-            this.btnGO.TabIndex = 5;
-            this.btnGO.Text = "GO";
-            this.btnGO.UseVisualStyleBackColor = false;
-            this.btnGO.Click += new System.EventHandler(this.btnGO_Click);
-            // 
             // tmrWatchdog1
             // 
             this.tmrWatchdog1.Enabled = true;
             this.tmrWatchdog1.Interval = 500;
             this.tmrWatchdog1.Tick += new System.EventHandler(this.tmrWatchdog1_Tick);
             // 
-            // btnAlarmOff
-            // 
-            this.btnAlarmOff.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAlarmOff.Location = new System.Drawing.Point(184, 48);
-            this.btnAlarmOff.Name = "btnAlarmOff";
-            this.btnAlarmOff.Size = new System.Drawing.Size(75, 23);
-            this.btnAlarmOff.TabIndex = 9;
-            this.btnAlarmOff.Text = "Alarm OFF";
-            this.btnAlarmOff.UseVisualStyleBackColor = true;
-            this.btnAlarmOff.Click += new System.EventHandler(this.btnAlarmOff_Click);
-            // 
             // tmrMasterAlarm
             // 
             this.tmrMasterAlarm.Enabled = true;
             this.tmrMasterAlarm.Interval = 300;
             this.tmrMasterAlarm.Tick += new System.EventHandler(this.tmrMasterAlarm_Tick);
-            // 
-            // lblAlarmBattery
-            // 
-            this.lblAlarmBattery.AutoSize = true;
-            this.lblAlarmBattery.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAlarmBattery.ForeColor = System.Drawing.Color.Red;
-            this.lblAlarmBattery.Location = new System.Drawing.Point(8, 16);
-            this.lblAlarmBattery.Name = "lblAlarmBattery";
-            this.lblAlarmBattery.Size = new System.Drawing.Size(48, 16);
-            this.lblAlarmBattery.TabIndex = 0;
-            this.lblAlarmBattery.Text = "BATT";
-            // 
-            // lblAlarmPort
-            // 
-            this.lblAlarmPort.AutoSize = true;
-            this.lblAlarmPort.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAlarmPort.ForeColor = System.Drawing.Color.Red;
-            this.lblAlarmPort.Location = new System.Drawing.Point(8, 32);
-            this.lblAlarmPort.Name = "lblAlarmPort";
-            this.lblAlarmPort.Size = new System.Drawing.Size(50, 16);
-            this.lblAlarmPort.TabIndex = 1;
-            this.lblAlarmPort.Text = "PORT";
-            // 
-            // lblAlarmPressure
-            // 
-            this.lblAlarmPressure.AutoSize = true;
-            this.lblAlarmPressure.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAlarmPressure.ForeColor = System.Drawing.Color.Red;
-            this.lblAlarmPressure.Location = new System.Drawing.Point(8, 48);
-            this.lblAlarmPressure.Name = "lblAlarmPressure";
-            this.lblAlarmPressure.Size = new System.Drawing.Size(49, 16);
-            this.lblAlarmPressure.TabIndex = 2;
-            this.lblAlarmPressure.Text = "PRES";
-            // 
-            // lblAlarmNetwork
-            // 
-            this.lblAlarmNetwork.AutoSize = true;
-            this.lblAlarmNetwork.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAlarmNetwork.ForeColor = System.Drawing.Color.Red;
-            this.lblAlarmNetwork.Location = new System.Drawing.Point(64, 15);
-            this.lblAlarmNetwork.Name = "lblAlarmNetwork";
-            this.lblAlarmNetwork.Size = new System.Drawing.Size(39, 16);
-            this.lblAlarmNetwork.TabIndex = 5;
-            this.lblAlarmNetwork.Text = "NET";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.ForeColor = System.Drawing.Color.Red;
-            this.label10.Location = new System.Drawing.Point(64, 32);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(51, 16);
-            this.label10.TabIndex = 6;
-            this.label10.Text = "NEMA";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.ForeColor = System.Drawing.Color.Red;
-            this.label11.Location = new System.Drawing.Point(64, 47);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(65, 16);
-            this.label11.TabIndex = 7;
-            this.label11.Text = "CARDIO";
-            // 
-            // lblAlarmWD1
-            // 
-            this.lblAlarmWD1.AutoSize = true;
-            this.lblAlarmWD1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAlarmWD1.ForeColor = System.Drawing.Color.Red;
-            this.lblAlarmWD1.Location = new System.Drawing.Point(128, 16);
-            this.lblAlarmWD1.Name = "lblAlarmWD1";
-            this.lblAlarmWD1.Size = new System.Drawing.Size(55, 16);
-            this.lblAlarmWD1.TabIndex = 8;
-            this.lblAlarmWD1.Text = "WDOG";
-            // 
-            // lblMasterAlarm
-            // 
-            this.lblMasterAlarm.AutoSize = true;
-            this.lblMasterAlarm.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMasterAlarm.ForeColor = System.Drawing.Color.Red;
-            this.lblMasterAlarm.Location = new System.Drawing.Point(128, 48);
-            this.lblMasterAlarm.Name = "lblMasterAlarm";
-            this.lblMasterAlarm.Size = new System.Drawing.Size(71, 16);
-            this.lblMasterAlarm.TabIndex = 9;
-            this.lblMasterAlarm.Text = "MASTER";
             // 
             // Form1
             // 

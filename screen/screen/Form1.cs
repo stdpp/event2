@@ -36,6 +36,14 @@ namespace screen
         {
             txtDebug_AppendLine("Loaded.");
             //Serial_Configure("COM3");
+
+            //default: Mode1
+            btnModes_ResetLayout();
+            selectedMode = 1;
+            btnMode1.BackColor = SystemColors.ControlDark;
+            Mode_Changed();
+
+
         }
 
         public void Serial_Configure(String port)
@@ -270,6 +278,7 @@ namespace screen
         {
             //Beep01();
             masterAlarm = true;
+            lblMasterAlarm.Visible = true;
         }
 
         private int sat(int min, int max, int val)
@@ -413,6 +422,11 @@ namespace screen
             if (isRunningOnBattery)
             {
                 Beep03();
+                lblAlarmBattery.Visible = true;
+            }
+            else
+            {
+                lblAlarmBattery.Visible = false;
             }
         }
 
@@ -438,6 +452,7 @@ namespace screen
         private void btnAlarmOff_Click(object sender, EventArgs e)
         {
             masterAlarm = false;
+            lblMasterAlarm.Visible = false;
             grpModes.BackColor = SystemColors.Control;
         }
 
@@ -500,7 +515,14 @@ namespace screen
         {
             txtDebug_AppendLine("SENT command: " + preparedCommand);
             //we send this to the arduino:
-            mySerialPort.Write(preparedCommand);
+            try
+            {
+                mySerialPort.Write(preparedCommand);
+            }
+            catch (Exception excep)
+            {
+                txtDebug_AppendLine("ERR: Sending GO error! Probably port closed.");
+            }
         }
     }
 }

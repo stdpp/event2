@@ -60,11 +60,6 @@ function Window($a, $b, $t)		//window fn
 	return 0;
 }
 
-function positive($a)
-{
-	if ($a < 0) return 0;
-	return $a;
-}
 
 
 function Integral($t1, $t2, $step, $f)

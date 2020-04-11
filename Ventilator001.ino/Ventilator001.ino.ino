@@ -21,7 +21,7 @@ void setup()
 {
   //initialize digital pin LED_BUILTIN as an output.
   pinMode(LED_BUILTIN, OUTPUT);
-  Serial.begin(19200);
+  Serial.begin(9600);
   while (!Serial) 
   {
     ; // wait for serial port to connect. Needed for Arduino Leonardo only
@@ -253,7 +253,7 @@ int setupMotorsAndValves()
 int setPistonTo(int position)
 {
   //sets piston to spec. position
-  delay(sp);
+  //delay(sp);
 }
 
 
@@ -276,7 +276,7 @@ int movePistonTo(long pos)
 
 void Blink01()
 {
-  for (int i=0; i < 2; i++)
+  for (int i=0; i < 4; i++)
   {
     digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
     delay(1);                       // wait for a second

@@ -20,8 +20,16 @@ namespace screen
         public int[] scaledBreathingCurve = new int[100];     //breathingCurve
         public int selectedMode = 1;
         public bool masterAlarm = false;
+        public bool serialPortCommLost = false;
         public int masterAlarmBg = 0;
         public string preparedCommand = "";
+
+        public const int BITMAP_WIDTH = 2000;
+        public const int BITMAP_HEIGHT = 256;
+
+        public DirectBitmap bitmapBreathingCurve = new DirectBitmap(BITMAP_WIDTH, BITMAP_HEIGHT);
+        public int bitmapBreathingCurveCurrPosX = 0;
+
 
         public SerialPort mySerialPort;
         public Form1()
@@ -68,6 +76,7 @@ namespace screen
             catch (Exception e)
             {
                 Debug.Print("Exception!");
+                //serialPortCommLost_setToTrue();
             }
         }
 
@@ -77,6 +86,9 @@ namespace screen
             string indata = sp.ReadExisting();
             txtFromSerial.Invoke(new Action(() => {
                 txtFromSerial_AppendLine(indata);
+                serialPortCommLost_setToFalse();
+                tmrWatchdogPort.Enabled = true;
+
             }));
 
             //TODO: capture the line, and parse the line.
@@ -418,6 +430,7 @@ namespace screen
 
         private void tmrWatchdog1_Tick(object sender, EventArgs e)
         {
+            //battery alarm:
             Boolean isRunningOnBattery = (System.Windows.Forms.SystemInformation.PowerStatus.PowerLineStatus == PowerLineStatus.Offline);
             if (isRunningOnBattery)
             {
@@ -427,6 +440,14 @@ namespace screen
             else
             {
                 lblAlarmBattery.Visible = false;
+            }
+
+
+            //port comm data lost alarm:
+            if (serialPortCommLost)
+            {
+                lblAlarmPort.Visible = true;
+                masterAlarm = true;
             }
         }
 
@@ -523,6 +544,50 @@ namespace screen
             {
                 txtDebug_AppendLine("ERR: Sending GO error! Probably port closed.");
             }
+        }
+
+        private void btnAppRestart_Click(object sender, EventArgs e)
+        {
+            Application.Restart();
+            Environment.Exit(0);
+        }
+
+        private void picBreathingCurve_AddPoints(int curve1_x, int curve1_y, int curve2_x, int curve2_y)
+        {
+            //we add points to the breathingCurve picture.
+        }
+
+        private void lblAlarmPort_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        public void setTimeout(Action TheAction, int Timeout)
+        {
+            Thread t = new Thread(
+                () =>
+                {
+                    Thread.Sleep(Timeout);
+                    TheAction.Invoke();
+                }
+            );
+            t.Start();
+        }
+
+        public void serialPortCommLost_setToTrue()
+        {
+            serialPortCommLost = true;
+        }
+
+        public void serialPortCommLost_setToFalse()
+        {
+            serialPortCommLost = false;
+            lblAlarmPort.Visible = false;
+        }
+
+        private void tmrWatchdogPort_Tick(object sender, EventArgs e)
+        {
+            serialPortCommLost_setToTrue();
         }
     }
 }

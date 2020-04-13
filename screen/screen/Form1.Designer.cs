@@ -48,6 +48,7 @@
             this.btnBeep = new System.Windows.Forms.Button();
             this.cmbPort = new System.Windows.Forms.ComboBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.btnAppRestart = new System.Windows.Forms.Button();
             this.lblMasterAlarm = new System.Windows.Forms.Label();
             this.lblAlarmWD1 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -85,6 +86,10 @@
             this.txtDebug = new System.Windows.Forms.TextBox();
             this.tmrWatchdog1 = new System.Windows.Forms.Timer(this.components);
             this.tmrMasterAlarm = new System.Windows.Forms.Timer(this.components);
+            this.picBreathingCurve = new System.Windows.Forms.PictureBox();
+            this.picCO2CurveSfO2Curve = new System.Windows.Forms.PictureBox();
+            this.picCardioCurve = new System.Windows.Forms.PictureBox();
+            this.tmrWatchdogPort = new System.Windows.Forms.Timer(this.components);
             this.grpModes.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -101,6 +106,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.numTB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numTA)).BeginInit();
             this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picBreathingCurve)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCO2CurveSfO2Curve)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCardioCurve)).BeginInit();
             this.SuspendLayout();
             // 
             // grpModes
@@ -304,6 +312,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.btnAppRestart);
             this.groupBox3.Controls.Add(this.lblMasterAlarm);
             this.groupBox3.Controls.Add(this.lblAlarmWD1);
             this.groupBox3.Controls.Add(this.label11);
@@ -318,6 +327,16 @@
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Alarms";
+            // 
+            // btnAppRestart
+            // 
+            this.btnAppRestart.Location = new System.Drawing.Point(120, 8);
+            this.btnAppRestart.Name = "btnAppRestart";
+            this.btnAppRestart.Size = new System.Drawing.Size(75, 23);
+            this.btnAppRestart.TabIndex = 6;
+            this.btnAppRestart.Text = "App Restart";
+            this.btnAppRestart.UseVisualStyleBackColor = true;
+            this.btnAppRestart.Click += new System.EventHandler(this.btnAppRestart_Click);
             // 
             // lblMasterAlarm
             // 
@@ -336,7 +355,7 @@
             this.lblAlarmWD1.AutoSize = true;
             this.lblAlarmWD1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAlarmWD1.ForeColor = System.Drawing.Color.Red;
-            this.lblAlarmWD1.Location = new System.Drawing.Point(128, 16);
+            this.lblAlarmWD1.Location = new System.Drawing.Point(128, 32);
             this.lblAlarmWD1.Name = "lblAlarmWD1";
             this.lblAlarmWD1.Size = new System.Drawing.Size(55, 16);
             this.lblAlarmWD1.TabIndex = 8;
@@ -402,6 +421,7 @@
             this.lblAlarmPort.TabIndex = 1;
             this.lblAlarmPort.Text = "PORT";
             this.lblAlarmPort.Visible = false;
+            this.lblAlarmPort.Click += new System.EventHandler(this.lblAlarmPort_Click);
             // 
             // lblAlarmBattery
             // 
@@ -766,11 +786,46 @@
             this.tmrMasterAlarm.Interval = 300;
             this.tmrMasterAlarm.Tick += new System.EventHandler(this.tmrMasterAlarm_Tick);
             // 
+            // picBreathingCurve
+            // 
+            this.picBreathingCurve.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picBreathingCurve.Location = new System.Drawing.Point(280, 160);
+            this.picBreathingCurve.Name = "picBreathingCurve";
+            this.picBreathingCurve.Size = new System.Drawing.Size(392, 56);
+            this.picBreathingCurve.TabIndex = 5;
+            this.picBreathingCurve.TabStop = false;
+            // 
+            // picCO2CurveSfO2Curve
+            // 
+            this.picCO2CurveSfO2Curve.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picCO2CurveSfO2Curve.Location = new System.Drawing.Point(280, 216);
+            this.picCO2CurveSfO2Curve.Name = "picCO2CurveSfO2Curve";
+            this.picCO2CurveSfO2Curve.Size = new System.Drawing.Size(392, 56);
+            this.picCO2CurveSfO2Curve.TabIndex = 6;
+            this.picCO2CurveSfO2Curve.TabStop = false;
+            // 
+            // picCardioCurve
+            // 
+            this.picCardioCurve.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picCardioCurve.Location = new System.Drawing.Point(280, 272);
+            this.picCardioCurve.Name = "picCardioCurve";
+            this.picCardioCurve.Size = new System.Drawing.Size(392, 56);
+            this.picCardioCurve.TabIndex = 7;
+            this.picCardioCurve.TabStop = false;
+            // 
+            // tmrWatchdogPort
+            // 
+            this.tmrWatchdogPort.Interval = 500;
+            this.tmrWatchdogPort.Tick += new System.EventHandler(this.tmrWatchdogPort_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(680, 334);
+            this.Controls.Add(this.picCardioCurve);
+            this.Controls.Add(this.picCO2CurveSfO2Curve);
+            this.Controls.Add(this.picBreathingCurve);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
@@ -802,6 +857,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.numTA)).EndInit();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picBreathingCurve)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCO2CurveSfO2Curve)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCardioCurve)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -864,6 +922,11 @@
         private System.Windows.Forms.Label lblAlarmNetwork;
         private System.Windows.Forms.Label lblAlarmPressure;
         private System.Windows.Forms.Label lblMasterAlarm;
+        private System.Windows.Forms.Button btnAppRestart;
+        private System.Windows.Forms.PictureBox picBreathingCurve;
+        private System.Windows.Forms.PictureBox picCO2CurveSfO2Curve;
+        private System.Windows.Forms.PictureBox picCardioCurve;
+        private System.Windows.Forms.Timer tmrWatchdogPort;
     }
 }
 

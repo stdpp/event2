@@ -7,3 +7,8 @@ C:\repos\EVENT2\screen\screen\obj\Debug\screen.csproj.GenerateResource.cache
 C:\repos\EVENT2\screen\screen\obj\Debug\screen.exe
 C:\repos\EVENT2\screen\screen\obj\Debug\screen.pdb
 C:\repos\EVENT2\screen\screen\obj\Debug\screen.csprojAssemblyReference.cache
+C:\repos\EVENT2\screen\screen\bin\Debug\Fizzler.dll
+C:\repos\EVENT2\screen\screen\bin\Debug\Svg.dll
+C:\repos\EVENT2\screen\screen\bin\Debug\System.Drawing.Common.dll
+C:\repos\EVENT2\screen\screen\bin\Debug\Svg.xml
+C:\repos\EVENT2\screen\screen\obj\Debug\screen.csproj.CopyComplete
